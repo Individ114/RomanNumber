@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+      <head>
+            <meta charset="UTF-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta
+                  name="viewport"
+                  content="width=device-width, initial-scale=1"
+            />
+            <script src="jquery.js"></script>
+            <link rel="stylesheet" href="style.css" />
+
+            <title>JavaScript</title>
+      </head>
+      <body>
+            <p>Введите число от 1 до 3999</p>
+            <br />
+            <table>
+                  <tr>
+                        <td data-num="1">1</td>
+                        <td data-num="2">2</td>
+                        <td data-num="3">3</td>
+                  </tr>
+                  <tr>
+                        <td data-num="4">4</td>
+                        <td data-num="5">5</td>
+                        <td data-num="6">6</td>
+                  </tr>
+                  <tr>
+                        <td data-num="7">7</td>
+                        <td data-num="8">8</td>
+                        <td data-num="9">9</td>
+                  </tr>
+                  <tr>
+                        <td></td>
+                        <td data-num="0">0</td>
+                        <td></td>
+                  </tr>
+            </table>
+            <br />
+            <button>Сгенерировать римское число</button>
+            <div>СБРОС</div>
+
+            <script>
+                  let p = document.querySelector("p");
+                  let table = document.querySelector("table");
+                  let button = document.querySelector("button");
+                  let div = document.querySelector("div");
+                  let num = p.innerHTML;
+
+                  // Функция генерирования римского числа
+                  var romanToInt = function () {
+                        let s = Number(p.innerHTML);
+
+                        if (!s) return p.innerHTML;
+
+                        let obj = {
+                              M: 1000,
+                              D: 500,
+                              C: 100,
+                              L: 50,
+                              X: 10,
+                              V: 5,
+                              I: 1,
+                        };
+
+                        let num = s;
+                        let arr = [];
+                        let sum = null;
+                        let delenie = null;
+
+                        for (let key in obj) {
+                              if (num >= 900 && num <= 999) {
+                                    arr.push("CM");
+                                    sum += 900;
+                                    num = s - sum;
+                              }
+                              if (num >= 400 && num <= 499) {
+                                    arr.push("CD");
+                                    sum += 400;
+                                    num = s - sum;
+                              }
+
+                              if (num >= 90 && num <= 99) {
+                                    arr.push("XC");
+                                    sum += 90;
+                                    num = s - sum;
+                              }
+
+                              if (num >= 40 && num <= 49) {
+                                    arr.push("XL");
+                                    sum += 40;
+                                    num = s - sum;
+                              }
+
+                              if (num === 9) {
+                                    arr.push("IX");
+                                    sum += 9;
+                                    num = s - sum;
+                              }
+
+                              if (num === 4) {
+                                    arr.push("IV");
+                                    sum += 4;
+                                    num = s - sum;
+                              }
+
+                              delenie = Math.floor(num / obj[key]);
+                              if (delenie > 0) {
+                                    for (let i = 0; i < delenie; i += 1) {
+                                          arr.push(key);
+                                          sum += obj[key];
+                                    }
+                                    num = s - sum;
+                              }
+                        }
+
+                        return (p.innerHTML = String(arr.join("")));
+                  };
+
+                  // Функция задающая число
+                  let getNum = function (event) {
+                        if (p.innerHTML === "Введите число от 1 до 3999")
+                              p.innerHTML = "";
+                        if (event.target.closest("[data-num]")) {
+                              let elem = event.target.closest("[data-num]");
+                              p.innerHTML += elem.dataset.num;
+                        }
+                  };
+
+                  // Кнопка сброса
+                  div.addEventListener("click", (event) => {
+                        p.innerHTML = "Введите число от 1 до 3999";
+                  });
+
+                  // Кнопки цифр
+                  table.addEventListener("click", getNum);
+
+                  // Кнопка генерации римского числа
+                  button.addEventListener("click", romanToInt);
+
+                  
+            </script>
+      </body>
+</html> 
