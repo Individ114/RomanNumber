@@ -136,8 +136,8 @@
                   // Кнопки цифр
                   table.addEventListener("click", getNum);
 
-                  // Убираю обводку текста на кнопках
-                  table.addEventListener("mousedown", (event) => {
+                  // Убираю обводку текста на всех элементах
+                  document.body.addEventListener("mousedown", (event) => {
                         event.preventDefault();
                   });
 
