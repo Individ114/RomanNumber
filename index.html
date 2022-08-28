@@ -17,23 +17,23 @@
             <br />
             <table>
                   <tr>
-                        <td data-num="1">1</td>
-                        <td data-num="2">2</td>
-                        <td data-num="3">3</td>
+                        <td data-num="1"><span>1</span></td>
+                        <td data-num="2"><span>2</span></td>
+                        <td data-num="3"><span>3</span></td>
                   </tr>
                   <tr>
-                        <td data-num="4">4</td>
-                        <td data-num="5">5</td>
-                        <td data-num="6">6</td>
+                        <td data-num="4"><span>4</span></td>
+                        <td data-num="5"><span>5</span></td>
+                        <td data-num="6"><span>6</span></td>
                   </tr>
                   <tr>
-                        <td data-num="7">7</td>
-                        <td data-num="8">8</td>
-                        <td data-num="9">9</td>
+                        <td data-num="7"><span>7</span></td>
+                        <td data-num="8"><span>8</span></td>
+                        <td data-num="9"><span>9</span></td>
                   </tr>
                   <tr>
                         <td></td>
-                        <td data-num="0">0</td>
+                        <td data-num="0"><span>0</span></td>
                         <td></td>
                   </tr>
             </table>
@@ -44,7 +44,6 @@
             <script>
                   let p = document.querySelector("p");
                   let table = document.querySelector("table");
-                  let td = table.querySelector("[data-num]");
                   let button = document.querySelector("button");
                   let div = document.querySelector("div");
                   let num = p.innerHTML;
@@ -121,14 +120,10 @@
 
                   // Функция задающая число
                   let getNum = function (event) {
-                        let target = event.target;
-                        if (
-                              p.innerHTML === "Введите число от 1 до 3999" &&
-                              target.closest("[data-num]")
-                        )
+                        if (p.innerHTML === "Введите число от 1 до 3999")
                               p.innerHTML = "";
-                        if (target.closest("[data-num]")) {
-                              let elem = target.closest("[data-num]");
+                        if (event.target.closest("[data-num]")) {
+                              let elem = event.target.closest("[data-num]");
                               p.innerHTML += elem.dataset.num;
                         }
                   };
@@ -141,10 +136,13 @@
                   // Кнопки цифр
                   table.addEventListener("click", getNum);
 
+                  // Убираю обводку текста на кнопках
+                  table.addEventListener("mousedown", (event) => {
+                        event.preventDefault();
+                  });
+
                   // Кнопка генерации римского числа
                   button.addEventListener("click", romanToInt);
-
-                  
             </script>
       </body>
-</html> 
+</html>
